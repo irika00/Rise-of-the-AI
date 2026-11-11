@@ -36,21 +36,21 @@ void LevelA::initialise()
         ----------- PROTAGONIST -----------
     */
     std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-        { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-        { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-        { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
-        { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
+        // { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
+        // { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
+        { UP,    { 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55 } },
+        { RIGHT, { 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 } },
     };
 
     float sizeRatio = 48.0f / 64.0f;
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 300.0f, mOrigin.y - 200.0f }, // position
-        { 250.0f * sizeRatio, 250.0f },             // scale
-        "assets/game/walk.png",                     // texture file address
+        { mOrigin.x - 250.0f, mOrigin.y / 2.0f}, // position
+        { 250.0f * sizeRatio * 0.3f , 250.0f * 0.5f},             // scale
+        "assets/game/witch.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
-        { 6, 8 },                                   // atlas dimensions
+        { 1, 70 },                                   // atlas dimensions
         xochitlAnimationAtlas,                      // actual atlas
         PLAYER                                      // entity type
     );

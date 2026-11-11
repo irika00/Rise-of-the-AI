@@ -323,7 +323,7 @@ void Entity::displayCollider()
 
 void Entity::AIWander()
 {
-    moveLeft();
+    // moveLeft();
 }
 
 void Entity::AIFollow(Entity *target)
@@ -339,10 +339,10 @@ void Entity::AIFollow(Entity *target)
     case WALKING:
         // Depending on where the player is in respect to their x-position
         // change direction of the NPC
-        if (mPosition.x > target->getPosition().x)
-            moveLeft();
-        else
-            moveRight();
+        // if (mPosition.x > target->getPosition().x)
+        //     moveLeft();
+        // else
+        moveRight();
         break;
     default:
         break;

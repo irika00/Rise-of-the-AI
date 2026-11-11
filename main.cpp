@@ -56,8 +56,7 @@ void processInput()
 {
     gCurrentScene->getState().xochitl->resetMovement();
 
-    if      (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
-    else if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
+    if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
 
     if (IsKeyPressed(KEY_W) &&
         gCurrentScene->getState().xochitl->isCollidingBottom())
