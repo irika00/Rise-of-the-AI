@@ -1,8 +1,8 @@
 #include "CS3113/LevelB.h"
 
 // Global Constants
-constexpr int SCREEN_WIDTH  = 1000,
-              SCREEN_HEIGHT = 600,
+constexpr int SCREEN_WIDTH  = 1152,
+              SCREEN_HEIGHT = 792,
               FPS           = 120;
 
 constexpr Vector2 ORIGIN = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
@@ -41,11 +41,11 @@ void initialise()
     InitAudioDevice();
 
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#C0897E");
-    gLevels[LEVEL_B] = new LevelB(ORIGIN, "#011627");
+    // gLevels[LEVEL_B] = new LevelB(ORIGIN, "#011627");
 
     switchToScene(gLevels[LEVEL_A]);
 
-    gCamera.offset   = ORIGIN;
+    gCamera.offset   = { SCREEN_WIDTH * 0.2f, SCREEN_HEIGHT / 2};
     gCamera.rotation = 0.0f;
     gCamera.zoom     = 1.0f;
 
@@ -57,6 +57,7 @@ void processInput()
     gCurrentScene->getState().xochitl->resetMovement();
 
     if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
+    if (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
 
     if (IsKeyPressed(KEY_W) &&
         gCurrentScene->getState().xochitl->isCollidingBottom())

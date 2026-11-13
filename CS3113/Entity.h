@@ -3,7 +3,7 @@
 
 #include "Map.h"
 
-enum Direction    { UP, RIGHT            }; 
+enum Direction    { UP, RIGHT, LEFT, DOWN           }; 
 enum EntityStatus { ACTIVE, INACTIVE                   };
 enum EntityType   { PLAYER, BLOCK, PLATFORM, NPC, NONE };
 enum AIType       { WANDERER, FOLLOWER                 };
@@ -112,8 +112,8 @@ public:
     bool isActive() { return mEntityStatus == ACTIVE; }
 
     void moveUp()    { mMovement.y = -1; mDirection = UP;    }
-    // void moveDown()  { mMovement.y =  1; mDirection = DOWN;  }
-    // void moveLeft()  { mMovement.x = -1; mDirection = LEFT;  }
+    void moveDown()  { mMovement.y =  1; mDirection = DOWN;  }
+    void moveLeft()  { mMovement.x = -1; mDirection = LEFT;  }
     void moveRight() { mMovement.x =  1; mDirection = RIGHT; }
 
     void resetMovement() { mMovement = { 0.0f, 0.0f }; }

@@ -23,6 +23,7 @@ void LevelB::initialise()
     /*
         ----------- MAP -----------
     */
+   //Vector2 mOrigin = { 603.0f, 549.0f };
     mGameState.map = new Map(
         LEVEL_WIDTH, LEVEL_HEIGHT, // map grid cols & rows
         mLevelData,                // grid data

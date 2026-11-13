@@ -16,7 +16,7 @@ void LevelA::initialise()
 
     mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
     SetMusicVolume(mGameState.bgm, 0.33f);
-    PlayMusicStream(mGameState.bgm);
+    // PlayMusicStream(mGameState.bgm);
 
     mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
 
@@ -26,9 +26,9 @@ void LevelA::initialise()
     mGameState.map = new Map(
         LEVEL_WIDTH, LEVEL_HEIGHT, // map grid cols & rows
         mLevelData,                // grid data
-        "assets/game/tileset.png", // texture filepath
+        "assets/game/tilemap_packed.png", // texture filepath
         TILE_DIMENSION,            // tile size
-        4, 1,                      // texture cols & rows
+        16, 7,                      // texture cols & rows
         mOrigin                    // in-game origin
     );
 
@@ -36,21 +36,30 @@ void LevelA::initialise()
         ----------- PROTAGONIST -----------
     */
     std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-        // { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-        // { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-        { UP,    { 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55 } },
-        { RIGHT, { 23, 24, 25, 26, 27, 28, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40 } },
+        { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
+        { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
+        { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
+        { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
     };
 
     float sizeRatio = 48.0f / 64.0f;
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
+    // mGameState.xochitl = new Entity(
+    //     { mOrigin.x, 20.0f}, // position
+    //     { 250.0f * sizeRatio * 0.3f , 250.0f * 0.5f},             // scale
+    //     "assets/game/witch.png",                     // texture file address
+    //     ATLAS,                                      // single image or atlas?
+    //     { 1, 70 },                                   // atlas dimensions
+    //     xochitlAnimationAtlas,                      // actual atlas
+    //     PLAYER                                      // entity type
+    // );
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 250.0f, mOrigin.y / 2.0f}, // position
-        { 250.0f * sizeRatio * 0.3f , 250.0f * 0.5f},             // scale
-        "assets/game/witch.png",                     // texture file address
+        { mOrigin.x - 1000.0f, mOrigin.y - 200.0f }, // position
+        { 250.0f * sizeRatio, 250.0f },             // scale
+        "assets/game/walk.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
-        { 1, 70 },                                   // atlas dimensions
+        { 6, 8 },                                   // atlas dimensions
         xochitlAnimationAtlas,                      // actual atlas
         PLAYER                                      // entity type
     );
@@ -94,7 +103,7 @@ void LevelA::shutdown()
     delete mGameState.map;
     mGameState.map = nullptr;
 
-    UnloadMusicStream(mGameState.bgm);
+    // UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
     mGameState.jumpSound = {};
