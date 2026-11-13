@@ -54,7 +54,7 @@ void LevelB::initialise()
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 300.0f, mOrigin.y - 200.0f }, // position
+        { mOrigin.x - 500.0f, mOrigin.y - 200.0f }, // position
         { 250.0f * sizeRatio, 250.0f },             // scale
         "assets/game/witch.png",                     // texture file address
         ATLAS,                                      // single image or atlas?

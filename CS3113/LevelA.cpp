@@ -55,7 +55,7 @@ void LevelA::initialise()
     //     PLAYER                                      // entity type
     // );
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 1000.0f, mOrigin.y - 200.0f }, // position
+        { mOrigin.x - 1200.0f, mOrigin.y - 200.0f }, // position
         { 250.0f * sizeRatio, 250.0f },             // scale
         "assets/game/walk.png",                     // texture file address
         ATLAS,                                      // single image or atlas?

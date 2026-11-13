@@ -45,7 +45,7 @@ void initialise()
 
     switchToScene(gLevels[LEVEL_A]);
 
-    gCamera.offset   = { SCREEN_WIDTH * 0.2f, SCREEN_HEIGHT / 2};
+    gCamera.offset   = { SCREEN_WIDTH * 0.4f, SCREEN_HEIGHT / 2};
     gCamera.rotation = 0.0f;
     gCamera.zoom     = 1.0f;
 
