@@ -37,6 +37,7 @@ private:
 
     int   mSpeed;
     float mAngle;
+    int mLives = 3;
 
     bool mIsCollidingTop    = false;
     bool mIsCollidingBottom = false;
@@ -144,6 +145,7 @@ public:
     EntityType  getEntityType()            const { return mEntityType;            }
     AIType      getAIType()                const { return mAIType;                }
     AIState     getAIState()               const { return mAIState;               }
+    float       getLives()                 const { return mLives;                 }
 
     bool isCollidingTop()    const { return mIsCollidingTop;    }
     bool isCollidingBottom() const { return mIsCollidingBottom; }
@@ -188,6 +190,8 @@ public:
 
     void setPlatformMotion(float speed, float minX, float maxX)
     { mMoveSpeed = speed; mMinX = minX; mMaxX = maxX; }
+    void setLives(int newLives)
+        { mLives = newLives;                           }
 };
 
 #endif // ENTITY_H

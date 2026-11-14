@@ -4,6 +4,7 @@
 constexpr int SCREEN_WIDTH  = 1152,
               SCREEN_HEIGHT = 792,
               FPS           = 120;
+              
 
 constexpr Vector2 ORIGIN = { SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2 };
 
@@ -15,6 +16,7 @@ float     gPreviousTicks   = 0.0f,
           gTimeAccumulator = 0.0f;
 
 Camera2D gCamera = {};
+int lives = 3;
 
 Scene                     *gCurrentScene = nullptr;
 std::map<SceneID, Scene *> gLevels       = {};
@@ -41,6 +43,7 @@ void initialise()
     InitAudioDevice();
 
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#C0897E");
+    // gLevels[LEVEL_A]->updateLives(lives);
     // gLevels[LEVEL_B] = new LevelB(ORIGIN, "#011627");
 
     switchToScene(gLevels[LEVEL_A]);
@@ -110,6 +113,7 @@ void render()
     BeginMode2D(gCamera);
 
     gCurrentScene->render();
+    DrawText(TextFormat("Lives: %.0f", gCurrentScene->getState().xochitl->getLives()), 20, 20, 30, WHITE);
 
     EndMode2D();
     EndDrawing();

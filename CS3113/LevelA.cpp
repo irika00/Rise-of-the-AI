@@ -74,10 +74,10 @@ void LevelA::initialise()
 
     mGameState.xochitl->setJumpingPower(550.0f);
     mGameState.xochitl->setColliderDimensions({
-        // mGameState.xochitl->getScale().x / 3.5f,
-        // mGameState.xochitl->getScale().y / 3.0f
-        SIZE * 0.8f,
-        SIZE * 0.9f
+        mGameState.xochitl->getScale().x / 2.0f ,
+        mGameState.xochitl->getScale().y
+        // SIZE * 0.8f,
+        // SIZE * 0.9f
     });
     mGameState.xochitl->setAcceleration({ 0.0f, ACCELERATION_OF_GRAVITY });
 
@@ -102,7 +102,7 @@ void LevelA::initialise()
     mGameState.turnip->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.turnip->setColliderDimensions({
         mGameState.turnip->getScale().x / 2.0f,
-        mGameState.turnip->getScale().y
+        mGameState.turnip->getScale().y 
     });
     mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.turnip->setDirection(LEFT);
@@ -118,8 +118,8 @@ void LevelA::update(float deltaTime)
         deltaTime,      // delta time / fixed timestep
         nullptr,        // player
         mGameState.map, // map
-        nullptr,        // collidable entities
-        0               // col. entity count
+        mGameState.turnip,        // collidable entities
+        1              // col. entity count
     );
 
     mGameState.turnip->update(
@@ -134,14 +134,23 @@ void LevelA::update(float deltaTime)
         mGameState.nextSceneID = LEVEL_B;
 }
 
+
+// void LevelA::updateLives(int lives)
+// {
+//     mLives = lives;
+
+// }
+
 void LevelA::render()
 {
     ClearBackground(ColorFromHex(mBGColourHexCode));
 
     mGameState.xochitl->render();
+    mGameState.xochitl->displayCollider();
     
     mGameState.map->render();
     mGameState.turnip->render();
+    mGameState.turnip->displayCollider();
 }
 
 void LevelA::shutdown()

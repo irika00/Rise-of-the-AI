@@ -96,6 +96,7 @@ void Entity::checkCollisionY(
                 mVelocity.y      = 0;
                 mIsCollidingTop  = true;
             }
+
         }
     }
 }
@@ -146,6 +147,8 @@ void Entity::checkCollisionX(
                 // Collision!
                 mIsCollidingLeft = true;
             }
+
+            mLives -= 1;
         }
     }
 }
@@ -422,6 +425,8 @@ void Entity::update(
     if (mTextureType == ATLAS && GetLength(mMovement) != 0 &&
         mIsCollidingBottom)
         animate(deltaTime);
+
+    
 }
 
 void Entity::render()

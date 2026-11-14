@@ -20,6 +20,8 @@ class Scene
 protected:
     GameState   mGameState;
     Vector2     mOrigin;
+    // int mLives;
+
     const char *mBGColourHexCode = "#000000";
 
 public:
@@ -29,6 +31,7 @@ public:
 
     virtual void initialise() = 0;
     virtual void update(float deltaTime) = 0;
+    // virtual void updateLives(int lives) = 0;
     virtual void render() = 0;
     virtual void shutdown() = 0;
 
