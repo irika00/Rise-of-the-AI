@@ -61,7 +61,7 @@ void LevelA::initialise()
     //     xochitlAnimationAtlas,                      // actual atlas
     //     PLAYER                                      // entity type
     // );
-    const float SIZE = 100.0f;
+    const float SIZE = 140.0f;
     mGameState.xochitl = new Entity(
         { mOrigin.x - 1200.0f, mOrigin.y - 200.0f }, // position
         { SIZE, SIZE },             // scale
@@ -80,6 +80,34 @@ void LevelA::initialise()
         SIZE * 0.9f
     });
     mGameState.xochitl->setAcceleration({ 0.0f, ACCELERATION_OF_GRAVITY });
+
+
+    std::map<Direction, std::vector<int>> turnipAnimationAtlas = {
+        { LEFT,  {  6,  7, 8} },
+        { RIGHT, { 3, 4, 5 } },
+    };
+
+    mGameState.turnip = new Entity(
+        {  mOrigin.x - 1000.0f, mOrigin.y - 200.0f }, // position
+        { 60.0f, 60.0f },             // scale
+        "assets/game/turnip.png",                     // texture file address
+        ATLAS,                                      // single image or atlas?
+        { 4, 3},                                   // atlas dimensions
+        turnipAnimationAtlas,                      // actual atlas
+        NPC                                      // entity type
+    );
+
+    mGameState.turnip->setAIType(WANDERER);
+    mGameState.turnip->setAIState(IDLE);
+    mGameState.turnip->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
+    mGameState.turnip->setColliderDimensions({
+        mGameState.turnip->getScale().x / 2.0f,
+        mGameState.turnip->getScale().y
+    });
+    mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
+    mGameState.turnip->setDirection(LEFT);
+
+
 }
 
 void LevelA::update(float deltaTime)
@@ -94,6 +122,14 @@ void LevelA::update(float deltaTime)
         0               // col. entity count
     );
 
+    mGameState.turnip->update(
+        deltaTime,      // delta time / fixed timestep
+        mGameState.xochitl,        // player
+        mGameState.map, // map
+        nullptr,        // collidable entities
+        0               // col. entity count
+    );
+
     if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
         mGameState.nextSceneID = LEVEL_B;
 }
@@ -103,7 +139,9 @@ void LevelA::render()
     ClearBackground(ColorFromHex(mBGColourHexCode));
 
     mGameState.xochitl->render();
+    
     mGameState.map->render();
+    mGameState.turnip->render();
 }
 
 void LevelA::shutdown()
@@ -112,6 +150,8 @@ void LevelA::shutdown()
     mGameState.xochitl = nullptr;
     delete mGameState.map;
     mGameState.map = nullptr;
+    delete mGameState.turnip;
+    mGameState.turnip = nullptr;
 
     // UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};

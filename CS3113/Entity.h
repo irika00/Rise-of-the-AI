@@ -69,6 +69,9 @@ private:
     void AIActivate(Entity *target);
     void AIWander();
     void AIFollow(Entity *target);
+    float mMoveSpeed = 0.0f;
+    float mMinX = 0.0f, mMaxX = 0.0f;
+    int   mMoveDir = 1;
 
 public:
     static constexpr int   DEFAULT_SIZE          = 250;
@@ -110,6 +113,11 @@ public:
     void displayCollider();
 
     bool isActive() { return mEntityStatus == ACTIVE; }
+        void update(float deltaTime);
+    
+
+    void updatePlatform(float deltaTime);
+
 
     void moveUp()    { mMovement.y = -1; mDirection = UP;    }
     void moveDown()  { mMovement.y =  1; mDirection = DOWN;  }
@@ -177,6 +185,9 @@ public:
         if (mTextureType == ATLAS)
             mAnimationIndices = mAnimationAtlas.at(mDirection);
     }
+
+    void setPlatformMotion(float speed, float minX, float maxX)
+    { mMoveSpeed = speed; mMinX = minX; mMaxX = maxX; }
 };
 
 #endif // ENTITY_H

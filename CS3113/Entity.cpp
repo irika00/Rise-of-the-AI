@@ -280,6 +280,17 @@ bool Entity::isColliding(Entity *other) const
     return xDistance < 0.0f && yDistance < 0.0f;
 }
 
+
+void Entity::updatePlatform(float deltaTime)
+{
+    if (mMoveSpeed == 0.0f) return;
+
+    mPosition.x += mMoveDir * mMoveSpeed * deltaTime;
+
+    if (mPosition.x > mMaxX) { mPosition.x = mMaxX; mMoveDir = -1; }
+    if (mPosition.x < mMinX) { mPosition.x = mMinX; mMoveDir =  1; }
+}
+
 /**
  * Updates the current frame index of an entity's animation based on the
  * elapsed time and frame speed.
@@ -323,7 +334,13 @@ void Entity::displayCollider()
 
 void Entity::AIWander()
 {
-    // moveLeft();
+
+    // if (mPosition.x > mMaxX) { mPosition.x = mMaxX; mMoveDir = -1; }
+    // if (mPosition.x < mMinX) { mPosition.x = mMinX; mMoveDir =  1; }
+
+    if (mPosition.x > 200.0f)  { moveLeft();  }
+    if (mPosition.x < -100.0f) { moveRight(); }
+    
 }
 
 void Entity::AIFollow(Entity *target)
