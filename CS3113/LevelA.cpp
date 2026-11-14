@@ -35,14 +35,21 @@ void LevelA::initialise()
     /*
         ----------- PROTAGONIST -----------
     */
+    // std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
+    //     { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
+    //     { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
+    //     { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
+    //     { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
+    // };
+
     std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-        { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-        { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-        { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
-        { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
+        { DOWN,  {  0,  0,  0,  0} },
+        { LEFT,  {  8,  9, 10, 11} },
+        { UP,    { 12,  13,  14,  15 } },
+        { RIGHT, { 4, 5, 6, 7 } },
     };
 
-    float sizeRatio = 48.0f / 64.0f;
+    float sizeRatio = 1.0f; //48.0f / 64.0f;
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
     // mGameState.xochitl = new Entity(
@@ -54,20 +61,23 @@ void LevelA::initialise()
     //     xochitlAnimationAtlas,                      // actual atlas
     //     PLAYER                                      // entity type
     // );
+    const float SIZE = 100.0f;
     mGameState.xochitl = new Entity(
         { mOrigin.x - 1200.0f, mOrigin.y - 200.0f }, // position
-        { 250.0f * sizeRatio, 250.0f },             // scale
-        "assets/game/walk.png",                     // texture file address
+        { SIZE, SIZE },             // scale
+        "assets/game/plate.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
-        { 6, 8 },                                   // atlas dimensions
+        { 4, 4},                                   // atlas dimensions
         xochitlAnimationAtlas,                      // actual atlas
         PLAYER                                      // entity type
     );
 
     mGameState.xochitl->setJumpingPower(550.0f);
     mGameState.xochitl->setColliderDimensions({
-        mGameState.xochitl->getScale().x / 3.5f,
-        mGameState.xochitl->getScale().y / 3.0f
+        // mGameState.xochitl->getScale().x / 3.5f,
+        // mGameState.xochitl->getScale().y / 3.0f
+        SIZE * 0.8f,
+        SIZE * 0.9f
     });
     mGameState.xochitl->setAcceleration({ 0.0f, ACCELERATION_OF_GRAVITY });
 }
