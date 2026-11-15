@@ -36,6 +36,10 @@ ifeq ($(wildcard CS3113/LevelB.cpp),CS3113/LevelB.cpp)
     SRCS += CS3113/LevelB.cpp
 endif
 
+ifeq ($(wildcard CS3113/LevelC.cpp),CS3113/LevelC.cpp)
+    SRCS += CS3113/LevelC.cpp
+endif
+
 # Default values
 CXX = g++
 CXXFLAGS = -std=c++11

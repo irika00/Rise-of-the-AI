@@ -1,5 +1,7 @@
 #include "CS3113/LevelB.h"
 #include "CS3113/LevelA.h"
+#include "CS3113/LevelC.h"
+
 
 // Global Constants
 constexpr int SCREEN_WIDTH  = 1152,
@@ -46,6 +48,8 @@ void initialise()
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#FFFFFF");
     // gLevels[LEVEL_A]->updateLives(lives);
     gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
+    gLevels[LEVEL_C] = new LevelC(ORIGIN, "#FFFFFF");
+    
 
     switchToScene(gLevels[LEVEL_A]);
 
@@ -68,6 +72,7 @@ void processInput()
 
     if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
     if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
+    if (IsKeyPressed(KEY_THREE)) switchToScene(gLevels[LEVEL_C]);
 
 
     if (IsKeyPressed(KEY_W) &&
@@ -106,7 +111,7 @@ void update()
         deltaTime -= FIXED_TIMESTEP;
 
         Vector2 currentPlayerPosition = {
-            gCurrentScene->getState().xochitl->getPosition().x, ORIGIN.y
+            gCurrentScene->getState().xochitl->getPosition().x, gCurrentScene->getState().xochitl->getPosition().y
         };
 
         panCamera(&gCamera, &currentPlayerPosition);
