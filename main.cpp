@@ -1,4 +1,5 @@
 #include "CS3113/LevelB.h"
+#include "CS3113/LevelA.h"
 
 // Global Constants
 constexpr int SCREEN_WIDTH  = 1152,
@@ -44,7 +45,7 @@ void initialise()
 
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#C0897E");
     // gLevels[LEVEL_A]->updateLives(lives);
-    // gLevels[LEVEL_B] = new LevelB(ORIGIN, "#011627");
+    gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
 
     switchToScene(gLevels[LEVEL_A]);
 
@@ -61,6 +62,13 @@ void processInput()
 
     if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
     if (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
+
+    // SceneID id = gCurrentScene->getState().nextSceneID;
+    // switchToScene(gLevels[id]);
+
+    if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
+    if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
+
 
     if (IsKeyPressed(KEY_W) &&
         gCurrentScene->getState().xochitl->isCollidingBottom())

@@ -16,33 +16,25 @@ void LevelB::initialise()
 
     mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
     SetMusicVolume(mGameState.bgm, 0.33f);
-    PlayMusicStream(mGameState.bgm);
+    // PlayMusicStream(mGameState.bgm);
 
     mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
 
     /*
         ----------- MAP -----------
     */
-   //Vector2 mOrigin = { 603.0f, 549.0f };
     mGameState.map = new Map(
         LEVEL_WIDTH, LEVEL_HEIGHT, // map grid cols & rows
         mLevelData,                // grid data
-        "assets/game/tileset.png", // texture filepath
+        "assets/game/tilemap_packed.png", // texture filepath
         TILE_DIMENSION,            // tile size
-        4, 1,                      // texture cols & rows
+        16, 7,                      // texture cols & rows
         mOrigin                    // in-game origin
     );
 
     /*
         ----------- PROTAGONIST -----------
     */
-    std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-        // { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-        // { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-        { UP,    { 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, 52, 53, 54, 55 } },
-        { RIGHT, { 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39 } },
-    };
-
     // std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
     //     { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
     //     { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
@@ -50,25 +42,72 @@ void LevelB::initialise()
     //     { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
     // };
 
-    float sizeRatio = 48.0f / 64.0f;
+    std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
+        { DOWN,  {  0,  0,  0,  0} },
+        { LEFT,  {  8,  9, 10, 11} },
+        { UP,    { 12,  13,  14,  15 } },
+        { RIGHT, { 4, 5, 6, 7 } },
+    };
+
+    float sizeRatio = 1.0f; //48.0f / 64.0f;
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
+    // mGameState.xochitl = new Entity(
+    //     { mOrigin.x, 20.0f}, // position
+    //     { 250.0f * sizeRatio * 0.3f , 250.0f * 0.5f},             // scale
+    //     "assets/game/witch.png",                     // texture file address
+    //     ATLAS,                                      // single image or atlas?
+    //     { 1, 70 },                                   // atlas dimensions
+    //     xochitlAnimationAtlas,                      // actual atlas
+    //     PLAYER                                      // entity type
+    // );
+    const float SIZE = 140.0f;
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 500.0f, mOrigin.y - 200.0f }, // position
-        { 250.0f * sizeRatio, 250.0f },             // scale
-        "assets/game/witch.png",                     // texture file address
+        { mOrigin.x - 1200.0f, mOrigin.y - 200.0f }, // position
+        { SIZE, SIZE },             // scale
+        "assets/game/plate.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
-        { 1, 70 },                                   // atlas dimensions
+        { 4, 4},                                   // atlas dimensions
         xochitlAnimationAtlas,                      // actual atlas
         PLAYER                                      // entity type
     );
 
     mGameState.xochitl->setJumpingPower(550.0f);
     mGameState.xochitl->setColliderDimensions({
-        mGameState.xochitl->getScale().x / 3.5f,
-        mGameState.xochitl->getScale().y / 3.0f
+        mGameState.xochitl->getScale().x / 2.0f ,
+        mGameState.xochitl->getScale().y
+        // SIZE * 0.8f,
+        // SIZE * 0.9f
     });
     mGameState.xochitl->setAcceleration({ 0.0f, ACCELERATION_OF_GRAVITY });
+
+
+    std::map<Direction, std::vector<int>> turnipAnimationAtlas = {
+        { LEFT,  {  6,  7, 8} },
+        { RIGHT, { 3, 4, 5 } },
+    };
+
+    mGameState.turnip = new Entity(
+        {  mOrigin.x - 1000.0f, mOrigin.y - 200.0f }, // position
+        { 60.0f, 60.0f },             // scale
+        "assets/game/turnip.png",                     // texture file address
+        ATLAS,                                      // single image or atlas?
+        { 4, 3},                                   // atlas dimensions
+        turnipAnimationAtlas,                      // actual atlas
+        NPC                                      // entity type
+    );
+
+    mGameState.turnip->setAIType(WANDERER);
+    mGameState.turnip->setAIState(IDLE);
+    mGameState.turnip->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
+    mGameState.turnip->setColliderDimensions({
+        mGameState.turnip->getScale().x / 2.0f,
+        mGameState.turnip->getScale().y 
+    });
+    mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
+    mGameState.turnip->setDirection(LEFT);
+
+
 }
 
 void LevelB::update(float deltaTime)
@@ -79,17 +118,39 @@ void LevelB::update(float deltaTime)
         deltaTime,      // delta time / fixed timestep
         nullptr,        // player
         mGameState.map, // map
+        mGameState.turnip,        // collidable entities
+        1              // col. entity count
+    );
+
+    mGameState.turnip->update(
+        deltaTime,      // delta time / fixed timestep
+        mGameState.xochitl,        // player
+        mGameState.map, // map
         nullptr,        // collidable entities
         0               // col. entity count
     );
+
+    if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
+        mGameState.nextSceneID = LEVEL_B;
 }
+
+
+// void LevelB::updateLives(int lives)
+// {
+//     mLives = lives;
+
+// }
 
 void LevelB::render()
 {
     ClearBackground(ColorFromHex(mBGColourHexCode));
 
     mGameState.xochitl->render();
+    mGameState.xochitl->displayCollider();
+    
     mGameState.map->render();
+    mGameState.turnip->render();
+    mGameState.turnip->displayCollider();
 }
 
 void LevelB::shutdown()
@@ -98,8 +159,10 @@ void LevelB::shutdown()
     mGameState.xochitl = nullptr;
     delete mGameState.map;
     mGameState.map = nullptr;
+    delete mGameState.turnip;
+    mGameState.turnip = nullptr;
 
-    UnloadMusicStream(mGameState.bgm);
+    // UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
     mGameState.jumpSound = {};
