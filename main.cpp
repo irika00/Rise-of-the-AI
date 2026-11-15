@@ -43,7 +43,7 @@ void initialise()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Scenes");
     InitAudioDevice();
 
-    gLevels[LEVEL_A] = new LevelA(ORIGIN, "#C0897E");
+    gLevels[LEVEL_A] = new LevelA(ORIGIN, "#FFFFFF");
     // gLevels[LEVEL_A]->updateLives(lives);
     gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
 

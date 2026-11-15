@@ -8,6 +8,8 @@ struct GameState
     Entity *xochitl;
     Map    *map;
     Entity *turnip;
+    Entity *fork;
+    Entity *bread;
 
     Music bgm;
     Sound jumpSound;

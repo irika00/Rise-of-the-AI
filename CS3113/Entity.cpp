@@ -338,13 +338,24 @@ void Entity::displayCollider()
 void Entity::AIWander()
 {
 
-    // if (mPosition.x > mMaxX) { mPosition.x = mMaxX; mMoveDir = -1; }
-    // if (mPosition.x < mMinX) { mPosition.x = mMinX; mMoveDir =  1; }
 
     if (mPosition.x > 200.0f)  { moveLeft();  }
     if (mPosition.x < -100.0f) { moveRight(); }
+
+    // if (mPosition.x > 600.0f)  { moveLeft();  }
+    // if (mPosition.x < 300.0f) { moveRight(); }
     
 }
+
+
+void Entity::test()
+{
+    if (mPosition.x > 600.0f)  { moveLeft();  }
+    if (mPosition.x < 300.0f) { moveRight(); }
+
+}
+
+
 
 void Entity::AIFollow(Entity *target)
 {
@@ -354,15 +365,17 @@ void Entity::AIFollow(Entity *target)
         // If the player approaches...
         if (Vector2Distance(mPosition, target->getPosition()) < 250.0f)
             // Switch to walking
-            mAIState = WALKING;
+                mAIState = WALKING;
+                if (mPosition.x > 600.0f)  { moveLeft();  }
+                if (mPosition.x < 300.0f) { moveRight(); }
         break;
     case WALKING:
         // Depending on where the player is in respect to their x-position
         // change direction of the NPC
-        // if (mPosition.x > target->getPosition().x)
-        //     moveLeft();
-        // else
-        moveRight();
+        if (mPosition.x > target->getPosition().x)
+            moveLeft();
+        else
+            moveRight();
         break;
     default:
         break;

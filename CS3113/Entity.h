@@ -69,6 +69,7 @@ private:
     void animate(float deltaTime);
     void AIActivate(Entity *target);
     void AIWander();
+    void test();
     void AIFollow(Entity *target);
     float mMoveSpeed = 0.0f;
     float mMinX = 0.0f, mMaxX = 0.0f;

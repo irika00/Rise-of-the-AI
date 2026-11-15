@@ -88,7 +88,7 @@ void LevelB::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  mOrigin.x - 1000.0f, mOrigin.y - 200.0f }, // position
+        {  mOrigin.x - 300.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -97,7 +97,7 @@ void LevelB::initialise()
         NPC                                      // entity type
     );
 
-    mGameState.turnip->setAIType(WANDERER);
+    mGameState.turnip->setAIType(FOLLOWER);
     mGameState.turnip->setAIState(IDLE);
     mGameState.turnip->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.turnip->setColliderDimensions({
@@ -106,6 +106,35 @@ void LevelB::initialise()
     });
     mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.turnip->setDirection(LEFT);
+
+    std::map<Direction, std::vector<int>> breadAnimationAtlas = {
+        { RIGHT, { 0, 1, 2, 2 } },
+        { LEFT,  { 0, 1, 2, 2} },
+    };
+
+    mGameState.bread = new Entity(
+        {  mOrigin.x - 1000.0f, mOrigin.y + 200.0f }, // position
+        { 60.0f, 60.0f },             // scale
+        "assets/game/bread.png",                     // texture file address
+        ATLAS,                                      // single image or atlas?
+        { 4, 4},                                   // atlas dimensions
+        breadAnimationAtlas,                      // actual atlas
+        NPC                                      // entity type
+    );
+
+    
+
+    mGameState.bread->setAIType(WANDERER);
+    mGameState.bread->setAIState(IDLE);
+    mGameState.bread->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
+    mGameState.bread->setColliderDimensions({
+        mGameState.bread->getScale().x / 2.0f,
+        mGameState.bread->getScale().y 
+    });
+    mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
+    mGameState.bread->setDirection(LEFT);
+
+    
 
 
 }
@@ -123,6 +152,14 @@ void LevelB::update(float deltaTime)
     );
 
     mGameState.turnip->update(
+        deltaTime,      // delta time / fixed timestep
+        mGameState.xochitl,        // player
+        mGameState.map, // map
+        nullptr,        // collidable entities
+        0               // col. entity count
+    );
+
+    mGameState.bread->update(
         deltaTime,      // delta time / fixed timestep
         mGameState.xochitl,        // player
         mGameState.map, // map
@@ -151,6 +188,8 @@ void LevelB::render()
     mGameState.map->render();
     mGameState.turnip->render();
     mGameState.turnip->displayCollider();
+    mGameState.bread->render();
+    mGameState.bread->displayCollider();
 }
 
 void LevelB::shutdown()
@@ -161,7 +200,8 @@ void LevelB::shutdown()
     mGameState.map = nullptr;
     delete mGameState.turnip;
     mGameState.turnip = nullptr;
-
+    delete mGameState.bread;
+    mGameState.bread = nullptr;
     // UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
