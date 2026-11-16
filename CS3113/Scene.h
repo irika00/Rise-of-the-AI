@@ -5,7 +5,7 @@
 
 struct GameState
 {
-    Entity *xochitl;
+    Entity *xochitl = nullptr;
     Map    *map;
     Entity *turnip;
     Entity *fork;

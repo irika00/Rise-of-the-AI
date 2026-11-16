@@ -1,6 +1,5 @@
 #ifndef WELCOME_H
 #define WELCOME_H
-// #include "LevelA.h"
 
 #include "Scene.h"
 
@@ -9,6 +8,7 @@
 class Welcome : public Scene
 {
 private:
+    Texture2D welcome;
 public:
     static constexpr float TILE_DIMENSION          = 72.0f, 
                            ACCELERATION_OF_GRAVITY = 981.0f,

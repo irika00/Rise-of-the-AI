@@ -38,7 +38,10 @@ void switchToScene(Scene *scene)
     if (gCurrentScene) gCurrentScene->shutdown();
     gCurrentScene = scene;
     gCurrentScene->initialise();
-    gCamera.target = gCurrentScene->getState().xochitl->getPosition();
+    // gCamera.target = gCurrentScene->getState().xochitl->getPosition();
+    Entity *player = gCurrentScene->getState().xochitl;
+    if (player != nullptr) gCamera.target = player->getPosition();
+    else                   gCamera.target = ORIGIN;
 }
 
 void initialise()
@@ -54,7 +57,7 @@ void initialise()
     gLevels[LEVEL_C] = new LevelC(ORIGIN, "#FFFFFF");
     
 
-    switchToScene(gLevels[LEVEL_A]);
+    switchToScene(gLevels[WELCOME]);
 
     gCamera.offset   = { SCREEN_WIDTH * 0.4f, SCREEN_HEIGHT / 2};
     gCamera.rotation = 0.0f;
@@ -65,30 +68,49 @@ void initialise()
 
 void processInput()
 {
-    gCurrentScene->getState().xochitl->resetMovement();
+    // gCurrentScene->getState().xochitl->resetMovement();
 
-    if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
-    if (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
+    // if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
+    // if (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
 
     // SceneID id = gCurrentScene->getState().nextSceneID;
     // switchToScene(gLevels[id]);
 
     if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
+    if (IsKeyPressed(KEY_ENTER)) switchToScene(gLevels[LEVEL_A]);
     if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
     if (IsKeyPressed(KEY_THREE)) switchToScene(gLevels[LEVEL_C]);
     if (IsKeyPressed(KEY_FOUR)) switchToScene(gLevels[WELCOME]);
 
 
-    if (IsKeyPressed(KEY_W) &&
-        gCurrentScene->getState().xochitl->isCollidingBottom())
-    {
-        gCurrentScene->getState().xochitl->jump();
-        PlaySound(gCurrentScene->getState().jumpSound);
-    }
+    // if (IsKeyPressed(KEY_W) &&
+    //     gCurrentScene->getState().xochitl->isCollidingBottom())
+    // {
+    //     gCurrentScene->getState().xochitl->jump();
+    //     PlaySound(gCurrentScene->getState().jumpSound);
+    // }
 
-    // to avoid faster diagonal speed
-    if (GetLength(gCurrentScene->getState().xochitl->getMovement()) > 1.0f)
-        gCurrentScene->getState().xochitl->normaliseMovement();
+    // if (GetLength(gCurrentScene->getState().xochitl->getMovement()) > 1.0f)
+    //     gCurrentScene->getState().xochitl->normaliseMovement();
+
+    Entity *player = gCurrentScene->getState().xochitl;
+    if (player != nullptr)
+    {
+        player->resetMovement();
+
+        if (IsKeyDown(KEY_D)) player->moveRight();
+        if (IsKeyDown(KEY_A)) player->moveLeft();
+
+        if (IsKeyPressed(KEY_W) && player->isCollidingBottom())
+        {
+            player->jump();
+            PlaySound(gCurrentScene->getState().jumpSound);
+        }
+
+        // to avoid faster diagonal speed
+        if (GetLength(player->getMovement()) > 1.0f)
+            player->normaliseMovement();
+    }
 
     if (IsKeyPressed(KEY_Q) || WindowShouldClose()) gAppStatus = TERMINATED;
 }
@@ -114,25 +136,64 @@ void update()
         gCurrentScene->update(FIXED_TIMESTEP);
         deltaTime -= FIXED_TIMESTEP;
 
-        Vector2 currentPlayerPosition = {
+        Entity *player = gCurrentScene->getState().xochitl;
+        if (player != nullptr)
+        {
+            Vector2 currentPlayerPosition = {
             gCurrentScene->getState().xochitl->getPosition().x, gCurrentScene->getState().xochitl->getPosition().y
-        };
+            };
+            panCamera(&gCamera, &currentPlayerPosition);
 
-        panCamera(&gCamera, &currentPlayerPosition);
+        }  
+
+       
     }
 
     gTimeAccumulator = deltaTime;
 }
 
+// void render()
+// {
+//     BeginDrawing();
+//     BeginMode2D(gCamera);
+
+
+
+//     if (gCurrentScene == gLevels[WELCOME])
+//     {
+//         gCurrentScene->render();          // no camera
+//     }
+//     else
+//     {
+//         BeginMode2D(gCamera);
+//         gCurrentScene->render();
+//         DrawText(TextFormat("Lives: %.0f", gCurrentScene->getState().xochitl->getLives()), 20, 20, 30, WHITE);
+//         EndMode2D();
+//     }
+
+//     EndDrawing();
+// }
+
+
 void render()
 {
     BeginDrawing();
-    BeginMode2D(gCamera);
 
-    gCurrentScene->render();
-    DrawText(TextFormat("Lives: %.0f", gCurrentScene->getState().xochitl->getLives()), 20, 20, 30, WHITE);
+    if (gCurrentScene == gLevels[WELCOME])
+    {
+        gCurrentScene->render();          // no camera
+    }
+    else
+    {
+        BeginMode2D(gCamera);
+        gCurrentScene->render();
+        EndMode2D();
 
-    EndMode2D();
+        DrawText(TextFormat("Lives: %.0f",
+                 gCurrentScene->getState().xochitl->getLives()),
+                 20, 20, 30, WHITE);
+    }
+
     EndDrawing();
 }
 

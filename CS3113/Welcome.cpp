@@ -19,20 +19,7 @@ void Welcome::initialise()
     // PlayMusicStream(mGameState.bgm);
 
     mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
-
-    /*
-        ----------- MAP -----------
-    */
-    mGameState.map = new Map(
-        1, 1, // map grid cols & rows
-        {0},                // grid data
-        "assets/game/welcome.png", // texture filepath
-        TILE_DIMENSION,            // tile size
-        1, 1,                      // texture cols & rows
-        mOrigin                    // in-game origin
-    );
-
-
+    welcome = LoadTexture("assets/game/welcome.png");
 
 
 }
@@ -55,19 +42,20 @@ void Welcome::render()
 {
     ClearBackground(ColorFromHex(mBGColourHexCode));
 
+    DrawTexturePro(welcome,
+    { 0, 0, (float) welcome.width, (float) welcome.height },
+    { 0, 0, (float) 1152, (float) 792 },
+    { 0, 0 }, 0.0f, WHITE);
 
-    
-    mGameState.map->render();
 
 }
 
 void Welcome::shutdown()
 {
     
-    delete mGameState.map;
-    mGameState.map = nullptr;
-    // UnloadMusicStream(mGameState.bgm);
+    UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
     mGameState.jumpSound = {};
+    UnloadTexture(welcome);
 }
