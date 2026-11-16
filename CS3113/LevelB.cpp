@@ -88,7 +88,7 @@ void LevelB::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  mOrigin.x - 300.0f, mOrigin.y - 400.0f }, // position
+        {  mOrigin.x - 100.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -106,6 +106,7 @@ void LevelB::initialise()
     });
     mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.turnip->setDirection(LEFT);
+    mGameState.turnip->setPatrolRange(190.0f, 850.0f);   
 
     std::map<Direction, std::vector<int>> breadAnimationAtlas = {
         { RIGHT, { 0, 1, 2, 2 } },
@@ -114,7 +115,7 @@ void LevelB::initialise()
 
     mGameState.bread = new Entity(
         {  mOrigin.x - 1000.0f, mOrigin.y + 200.0f }, // position
-        { 60.0f, 60.0f },             // scale
+        { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
         { 4, 4},                                   // atlas dimensions

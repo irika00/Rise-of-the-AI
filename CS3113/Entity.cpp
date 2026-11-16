@@ -372,16 +372,16 @@ void Entity::AIFollow(Entity *target)
         if (Vector2Distance(mPosition, target->getPosition()) < 250.0f)
             // Switch to walking
                 mAIState = WALKING;
-                if (mPosition.x > 600.0f)  { moveLeft();  }
-                if (mPosition.x < 300.0f) { moveRight(); }
+
         break;
     case WALKING:
         // Depending on where the player is in respect to their x-position
         // change direction of the NPC
-        if (mPosition.x > target->getPosition().x)
-            moveLeft();
-        else
-            moveRight();
+        if (mPosition.x > target->getPosition().x) moveLeft();
+        else                                       moveRight();
+
+        if (mPosition.x <= mPatrolMinX && mMovement.x < 0.0f) mMovement.x = 0.0f;
+        if (mPosition.x >= mPatrolMaxX && mMovement.x > 0.0f) mMovement.x = 0.0f;
         break;
     default:
         break;

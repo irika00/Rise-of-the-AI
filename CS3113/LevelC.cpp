@@ -23,6 +23,8 @@ void LevelC::initialise()
     /*
         ----------- MAP -----------
     */
+
+   //from https://kenney.nl/assets/pixel-platformer-food-expansion
     mGameState.map = new Map(
         LEVEL_WIDTH, LEVEL_HEIGHT, // map grid cols & rows
         mLevelData,                // grid data
@@ -35,12 +37,7 @@ void LevelC::initialise()
     /*
         ----------- PROTAGONIST -----------
     */
-    // std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-    //     { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-    //     { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-    //     { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
-    //     { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
-    // };
+
 
     std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
         { DOWN,  {  0,  0,  0,  0} },
@@ -52,18 +49,10 @@ void LevelC::initialise()
     float sizeRatio = 1.0f; //48.0f / 64.0f;
 
     // Assets from @see https://sscary.itch.io/the-adventurer-female
-    // mGameState.xochitl = new Entity(
-    //     { mOrigin.x, 20.0f}, // position
-    //     { 250.0f * sizeRatio * 0.3f , 250.0f * 0.5f},             // scale
-    //     "assets/game/witch.png",                     // texture file address
-    //     ATLAS,                                      // single image or atlas?
-    //     { 1, 70 },                                   // atlas dimensions
-    //     xochitlAnimationAtlas,                      // actual atlas
-    //     PLAYER                                      // entity type
-    // );
+
     const float SIZE = 140.0f;
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 1200.0f, mOrigin.y - 200.0f }, // position
+        { mOrigin.x - 1400.0f, mOrigin.y - 200.0f }, // position
         { SIZE, SIZE },             // scale
         "assets/game/plate.png",                     // texture file address
         ATLAS,                                      // single image or atlas?

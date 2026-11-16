@@ -34,6 +34,8 @@ private:
 
     bool  mIsJumping    = false;
     float mJumpingPower = 0.0f;
+    float mPatrolMinX = -1000.0f;  
+    float mPatrolMaxX =  1000.0f;
 
     int   mSpeed;
     float mAngle;
@@ -205,6 +207,7 @@ public:
 
     void  setLerpFactor(float lerpFactor) { mLerpFactor = lerpFactor; }
     float getLerpFactor() const           { return mLerpFactor; }
+    void setPatrolRange(float minX, float maxX) { mPatrolMinX = minX; mPatrolMaxX = maxX; }
 };
 
 #endif // ENTITY_H
