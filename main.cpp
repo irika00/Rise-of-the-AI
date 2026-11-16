@@ -60,7 +60,7 @@ void switchToScene(Scene *scene)
     if (gCurrentScene) gCurrentScene->shutdown();
     gCurrentScene = scene;
     gCurrentScene->initialise();
-    if (scene == gLevels[LEVEL_A]) gLives = 3.0f;
+    if (scene == gLevels[WELCOME]) gLives = 3.0f;
     // gCamera.target = gCurrentScene->getState().xochitl->getPosition();
     Entity *player = gCurrentScene->getState().xochitl;
     if (player != nullptr)
@@ -201,13 +201,13 @@ void render()
         gCurrentScene->render();
         EndMode2D();
 
-        DrawText(TextFormat("Lives: %.0f",
-                 gLives),
+        Entity *player = gCurrentScene->getState().xochitl;
+        DrawText(TextFormat("Lives: %.0f", player->getLives()),
                  20, 20, 30, PINK);
 
 
         //to be deleted
-        Entity *player = gCurrentScene->getState().xochitl;
+        // Entity *player = gCurrentScene->getState().xochitl;
         float   playerX = player->getPosition().x;
 
         DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
