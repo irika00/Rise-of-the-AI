@@ -71,33 +71,75 @@ void Entity::checkCollisionY(
         // STEP 1: For every entity that our player can collide with...
         Entity *collidableEntity = collidableEntities[i];
 
-        if (isColliding(collidableEntity))
-        {
-            // STEP 2: Calculate the distance between its centre and our centre
-            //         and use that to calculate the amount of overlap between
-            //         both bodies.
-            float yDistance = fabs(mPosition.y - collidableEntity->mPosition.y);
-            float yOverlap  = fabs(
+        if (!isColliding(collidableEntity)) continue;
+        bool enemyContact = mEntityType == PLAYER && collidableEntity->mEntityType == NPC;
+
+        float yDistance = fabs(mPosition.y - collidableEntity->mPosition.y);
+        float yOverlap  = fabs(
                 yDistance - (mColliderDimensions.y / 2.0f) -
                 (collidableEntity->mColliderDimensions.y / 2.0f)
             );
+        
 
-            // STEP 3: "Unclip" ourselves from the other entity, and zero our
-            //         vertical velocity.
-            if (mVelocity.y > 0)
+        if (enemyContact)
+        {
+            // one life per touch, on the first frame of contact only
+            mTouchingEnemy = true;
+            if (!mWasTouchingEnemy) mLives -= 1;
+
+            // falling with my feet above the enemy's centre = landed on it
+            float myBottom = mPosition.y + mColliderDimensions.y / 2.0f;
+            if (mVelocity.y > 0.0f && myBottom < collidableEntity->mPosition.y)
             {
-                mPosition.y        -= yOverlap;
-                mVelocity.y         = 0;
-                mIsCollidingBottom  = true;
-            }
-            else if (mVelocity.y < 0)
-            {
-                mPosition.y     += yOverlap;
-                mVelocity.y      = 0;
-                mIsCollidingTop  = true;
+                mPosition.y -= yOverlap;        // unclip from it
+                mVelocity.y  = -350.0f;  // bounce
             }
 
+            continue; 
+        }  
+
+        // if (isColliding(collidableEntity))
+        // {
+        //     // STEP 2: Calculate the distance between its centre and our centre
+        //     //         and use that to calculate the amount of overlap between
+        //     //         both bodies.
+        //     float yDistance = fabs(mPosition.y - collidableEntity->mPosition.y);
+        //     float yOverlap  = fabs(
+        //         yDistance - (mColliderDimensions.y / 2.0f) -
+        //         (collidableEntity->mColliderDimensions.y / 2.0f)
+        //     );
+
+        //     // STEP 3: "Unclip" ourselves from the other entity, and zero our
+        //     //         vertical velocity.
+        //     if (mVelocity.y > 0)
+        //     {
+        //         mPosition.y        -= yOverlap;
+        //         mVelocity.y         = 0;
+        //         mIsCollidingBottom  = true;
+        //     }
+        //     else if (mVelocity.y < 0)
+        //     {
+        //         mPosition.y     += yOverlap;
+        //         mVelocity.y      = 0;
+        //         mIsCollidingTop  = true;
+        //     }
+
+        // }
+
+
+        if (mVelocity.y > 0)
+        {
+            mPosition.y        -= yOverlap;
+            mVelocity.y         = 0;
+            mIsCollidingBottom  = true;
         }
+        else if (mVelocity.y < 0)
+        {
+            mPosition.y     += yOverlap;
+            mVelocity.y      = 0;
+            mIsCollidingTop  = true;
+        }
+        
     }
 }
 
