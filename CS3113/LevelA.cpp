@@ -14,11 +14,11 @@ void LevelA::initialise()
 {
     mGameState.nextSceneID = NO_SCENE;
 
-    mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
+    mGameState.bgm = LoadMusicStream("assets/game/bgmusic.mp3");
     SetMusicVolume(mGameState.bgm, 0.33f);
-    // PlayMusicStream(mGameState.bgm);
+    PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
+    mGameState.jumpSound = LoadSound("assets/game/slime_jump.mp3");
 
     /*
         ----------- MAP -----------
@@ -259,7 +259,7 @@ void LevelA::shutdown()
     delete mGameState.donut;
     mGameState.donut = nullptr;
 
-    // UnloadMusicStream(mGameState.bgm);
+    UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
     mGameState.jumpSound = {};
