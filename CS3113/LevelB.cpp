@@ -167,8 +167,8 @@ void LevelB::update(float deltaTime)
         0               // col. entity count
     );
 
-    if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
-        mGameState.nextSceneID = LEVEL_B;
+
+    if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_C;
 }
 
 

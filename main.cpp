@@ -190,6 +190,16 @@ void render()
         DrawText(TextFormat("Lives: %.0f",
                  gLives),
                  20, 20, 30, PINK);
+
+
+        //to be deleted
+        Entity *player = gCurrentScene->getState().xochitl;
+        float   playerX = player->getPosition().x;
+
+        DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
+
+
+
     }
 
     EndDrawing();

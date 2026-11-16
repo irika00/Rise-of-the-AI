@@ -173,6 +173,10 @@ void LevelA::initialise()
 
 void LevelA::update(float deltaTime)
 {
+
+
+    if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_B;
+
     UpdateMusicStream(mGameState.bgm);
 
     mGameState.xochitl->update(
@@ -191,8 +195,8 @@ void LevelA::update(float deltaTime)
     //     0               // col. entity count
     // );
 
-    if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
-        mGameState.nextSceneID = LEVEL_B;
+    // if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
+    //     mGameState.nextSceneID = LEVEL_B;
 
 
     mGameState.bread->update(
@@ -211,6 +215,7 @@ void LevelA::update(float deltaTime)
         nullptr,        // collidable entities
         0               // col. entity count
     );
+
 }
 
 
@@ -235,6 +240,8 @@ void LevelA::render()
 
     mGameState.donut->render();
     mGameState.donut->displayCollider();
+
+   
 
 }
 
