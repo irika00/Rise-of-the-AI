@@ -45,6 +45,9 @@ private:
     bool mIsCollidingRight  = false;
     bool mIsCollidingLeft   = false;
 
+    bool mTouchingEnemy    = false;   
+    bool mWasTouchingEnemy = false;   
+
     EntityStatus mEntityStatus = ACTIVE;
     EntityType   mEntityType;
 

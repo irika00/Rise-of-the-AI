@@ -148,7 +148,13 @@ void Entity::checkCollisionX(
                 mIsCollidingLeft = true;
             }
 
-            mLives -= 1;
+            if (mEntityType == PLAYER && collidableEntity->mEntityType == NPC)
+            {
+                mTouchingEnemy = true;
+                if (!mWasTouchingEnemy) mLives -= 1;
+            }
+
+            // mLives -= 1;
         }
     }
 }
@@ -450,6 +456,9 @@ void Entity::update(
     if (mEntityType == NPC) AIActivate(player, deltaTime);
 
     resetColliderFlags();
+
+    mWasTouchingEnemy = mTouchingEnemy;
+    mTouchingEnemy    = false;
 
     if (mAIType != LERPER)
     {

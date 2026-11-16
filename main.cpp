@@ -22,7 +22,7 @@ float     gPreviousTicks   = 0.0f,
           gTimeAccumulator = 0.0f;
 
 Camera2D gCamera = {};
-int lives = 3;
+int gLives = 3;
 
 Scene                     *gCurrentScene = nullptr;
 std::map<SceneID, Scene *> gLevels       = {};
@@ -37,13 +37,27 @@ void shutdown();
 
 void switchToScene(Scene *scene)
 {
+
+    if (gCurrentScene && gCurrentScene->getState().xochitl != nullptr)
+        gLives = gCurrentScene->getState().xochitl->getLives();
     if (gCurrentScene) gCurrentScene->shutdown();
     gCurrentScene = scene;
     gCurrentScene->initialise();
     // gCamera.target = gCurrentScene->getState().xochitl->getPosition();
     Entity *player = gCurrentScene->getState().xochitl;
-    if (player != nullptr) gCamera.target = player->getPosition();
-    else                   gCamera.target = ORIGIN;
+    if (player != nullptr)
+    {
+        player->setLives(gLives);
+        gCamera.target = player->getPosition();
+    } 
+    
+    else   
+    {
+        gCamera.target = ORIGIN;
+
+    }                
+    
+    
 }
 
 void initialise()
@@ -174,7 +188,7 @@ void render()
         EndMode2D();
 
         DrawText(TextFormat("Lives: %.0f",
-                 gCurrentScene->getState().xochitl->getLives()),
+                 gLives),
                  20, 20, 30, PINK);
     }
 
