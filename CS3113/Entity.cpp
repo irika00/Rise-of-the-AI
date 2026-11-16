@@ -63,13 +63,13 @@ Entity::~Entity() { UnloadTexture(mTexture); }
  * for collisions with the current entity.
  */
 void Entity::checkCollisionY(
-    Entity *collidableEntities, int collisionCheckCount
+    Entity **collidableEntities, int collisionCheckCount
 )
 {
     for (int i = 0; i < collisionCheckCount; i++)
     {
         // STEP 1: For every entity that our player can collide with...
-        Entity *collidableEntity = &collidableEntities[i];
+        Entity *collidableEntity = collidableEntities[i];
 
         if (isColliding(collidableEntity))
         {
@@ -102,12 +102,12 @@ void Entity::checkCollisionY(
 }
 
 void Entity::checkCollisionX(
-    Entity *collidableEntities, int collisionCheckCount
+    Entity **collidableEntities, int collisionCheckCount
 )
 {
     for (int i = 0; i < collisionCheckCount; i++)
     {
-        Entity *collidableEntity = &collidableEntities[i];
+        Entity *collidableEntity = collidableEntities[i];
 
         if (isColliding(collidableEntity))
         {
@@ -447,7 +447,7 @@ void Entity::update(
     float   deltaTime,
     Entity *player,
     Map    *map,
-    Entity *collidableEntities,
+    Entity **collidableEntities,
     int     collisionCheckCount
 )
 {

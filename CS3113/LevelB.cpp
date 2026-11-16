@@ -174,12 +174,13 @@ void LevelB::update(float deltaTime)
 {
     UpdateMusicStream(mGameState.bgm);
 
+    Entity *enemies[] = { mGameState.turnip, mGameState.bread };
     mGameState.xochitl->update(
         deltaTime,      // delta time / fixed timestep
         nullptr,        // player
         mGameState.map, // map
-        mGameState.turnip,        // collidable entities
-        1              // col. entity count
+        enemies,        // collidable entities
+        2              // col. entity count
     );
 
     mGameState.turnip->update(

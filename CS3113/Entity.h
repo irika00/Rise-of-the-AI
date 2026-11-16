@@ -58,10 +58,10 @@ private:
 
     bool isColliding(Entity *other) const;
 
-    void checkCollisionY(Entity *collidableEntities, int collisionCheckCount);
+    void checkCollisionY(Entity **collidableEntities, int collisionCheckCount);
     void checkCollisionY(Map *map);
 
-    void checkCollisionX(Entity *collidableEntities, int collisionCheckCount);
+    void checkCollisionX(Entity **collidableEntities, int collisionCheckCount);
     void checkCollisionX(Map *map);
 
     void resetColliderFlags()
@@ -109,7 +109,7 @@ public:
         float   deltaTime,
         Entity *player,
         Map    *map,
-        Entity *collidableEntities,
+        Entity **collidableEntities,
         int     collisionCheckCount
     );
 

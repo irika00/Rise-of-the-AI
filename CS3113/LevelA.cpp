@@ -184,7 +184,7 @@ void LevelA::update(float deltaTime)
         deltaTime,      // delta time / fixed timestep
         nullptr,        // player
         mGameState.map, // map
-        mGameState.bread,        // collidable entities
+        &mGameState.bread,        // collidable entities
         1              // col. entity count
     );
 
