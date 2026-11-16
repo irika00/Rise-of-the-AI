@@ -103,7 +103,7 @@ void LevelC::initialise()
 
     mGameState.bread = new Entity(
         {  mOrigin.x - 1000.0f, mOrigin.y + 200.0f }, // position
-        { 60.0f, 60.0f },             // scale
+        { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
         { 4, 4},                                   // atlas dimensions
