@@ -2,6 +2,8 @@
 #include "CS3113/LevelA.h"
 #include "CS3113/LevelC.h"
 #include "CS3113/Welcome.h"
+#include "CS3113/Win.h"
+#include "CS3113/Lose.h"
 
 
 // Global Constants
@@ -55,6 +57,8 @@ void initialise()
     // gLevels[LEVEL_A]->updateLives(lives);
     gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
     gLevels[LEVEL_C] = new LevelC(ORIGIN, "#FFFFFF");
+    gLevels[WIN] = new Win(ORIGIN, "#FFFFFF");
+    gLevels[LOSE] = new Lose(ORIGIN, "#FFFFFF");
     
 
     switchToScene(gLevels[WELCOME]);
@@ -81,6 +85,8 @@ void processInput()
     if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
     if (IsKeyPressed(KEY_THREE)) switchToScene(gLevels[LEVEL_C]);
     if (IsKeyPressed(KEY_FOUR)) switchToScene(gLevels[WELCOME]);
+    if (IsKeyPressed(KEY_FIVE)) switchToScene(gLevels[WIN]);
+    if (IsKeyPressed(KEY_SIX)) switchToScene(gLevels[LOSE]);
 
 
     // if (IsKeyPressed(KEY_W) &&
@@ -152,34 +158,12 @@ void update()
     gTimeAccumulator = deltaTime;
 }
 
-// void render()
-// {
-//     BeginDrawing();
-//     BeginMode2D(gCamera);
-
-
-
-//     if (gCurrentScene == gLevels[WELCOME])
-//     {
-//         gCurrentScene->render();          // no camera
-//     }
-//     else
-//     {
-//         BeginMode2D(gCamera);
-//         gCurrentScene->render();
-//         DrawText(TextFormat("Lives: %.0f", gCurrentScene->getState().xochitl->getLives()), 20, 20, 30, WHITE);
-//         EndMode2D();
-//     }
-
-//     EndDrawing();
-// }
-
 
 void render()
 {
     BeginDrawing();
 
-    if (gCurrentScene == gLevels[WELCOME])
+    if (gCurrentScene == gLevels[WELCOME] || gCurrentScene == gLevels[WIN] || gCurrentScene == gLevels[LOSE])
     {
         gCurrentScene->render();          // no camera
     }
@@ -191,7 +175,7 @@ void render()
 
         DrawText(TextFormat("Lives: %.0f",
                  gCurrentScene->getState().xochitl->getLives()),
-                 20, 20, 30, WHITE);
+                 20, 20, 30, PINK);
     }
 
     EndDrawing();
