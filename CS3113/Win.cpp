@@ -14,11 +14,8 @@ void Win::initialise()
 {
     mGameState.nextSceneID = NO_SCENE;
 
-    mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
-    SetMusicVolume(mGameState.bgm, 0.33f);
-    // PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
+
     win = LoadTexture("assets/game/Win.png");
 
 
@@ -26,8 +23,8 @@ void Win::initialise()
 
 void Win::update(float deltaTime)
 {
-    UpdateMusicStream(mGameState.bgm);
 
+//s
   
 }
 
@@ -53,9 +50,5 @@ void Win::render()
 void Win::shutdown()
 {
     
-    UnloadMusicStream(mGameState.bgm);
-    mGameState.bgm = {};
-    UnloadSound(mGameState.jumpSound);
-    mGameState.jumpSound = {};
     UnloadTexture(win);
 }

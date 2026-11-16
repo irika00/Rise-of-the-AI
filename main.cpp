@@ -60,6 +60,7 @@ void switchToScene(Scene *scene)
     if (gCurrentScene) gCurrentScene->shutdown();
     gCurrentScene = scene;
     gCurrentScene->initialise();
+    if (scene == gLevels[LEVEL_A]) gLives = 3.0f;
     // gCamera.target = gCurrentScene->getState().xochitl->getPosition();
     Entity *player = gCurrentScene->getState().xochitl;
     if (player != nullptr)
@@ -91,7 +92,9 @@ void initialise()
     gLevels[WIN] = new Win(ORIGIN, "#FFFFFF");
     gLevels[LOSE] = new Lose(ORIGIN, "#FFFFFF");
     
-
+    
+    
+    gLives = 3;
     switchToScene(gLevels[WELCOME]);
 
     gCamera.offset   = { SCREEN_WIDTH * 0.4f, SCREEN_HEIGHT / 2};
@@ -103,13 +106,7 @@ void initialise()
 
 void processInput()
 {
-    // gCurrentScene->getState().xochitl->resetMovement();
 
-    // if (IsKeyDown(KEY_D)) gCurrentScene->getState().xochitl->moveRight();
-    // if (IsKeyDown(KEY_A)) gCurrentScene->getState().xochitl->moveLeft();
-
-    // SceneID id = gCurrentScene->getState().nextSceneID;
-    // switchToScene(gLevels[id]);
 
     if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
     if (IsKeyPressed(KEY_ENTER)) switchToScene(gLevels[LEVEL_A]);
@@ -141,7 +138,7 @@ void processInput()
         if (IsKeyPressed(KEY_W) && player->isCollidingBottom())
         {
             player->jump();
-            PlaySound(gCurrentScene->getState().jumpSound);
+            // PlaySound(gCurrentScene->getState().jumpSound);
         }
 
         // to avoid faster diagonal speed

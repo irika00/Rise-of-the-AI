@@ -14,11 +14,10 @@ void Welcome::initialise()
 {
     mGameState.nextSceneID = NO_SCENE;
 
-    mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
+    mGameState.bgm = LoadMusicStream("assets/game/bgmusic.mp3");
     SetMusicVolume(mGameState.bgm, 0.33f);
-    // PlayMusicStream(mGameState.bgm);
+    PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
     welcome = LoadTexture("assets/game/welcome.png");
 
 
@@ -55,7 +54,5 @@ void Welcome::shutdown()
     
     UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
-    UnloadSound(mGameState.jumpSound);
-    mGameState.jumpSound = {};
     UnloadTexture(welcome);
 }

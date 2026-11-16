@@ -176,6 +176,7 @@ void LevelA::update(float deltaTime)
 
 
     if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_B;
+    if (mGameState.xochitl->getLives() == 0) mGameState.nextSceneID = LOSE;
 
     UpdateMusicStream(mGameState.bgm);
 

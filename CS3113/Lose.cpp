@@ -14,11 +14,7 @@ void Lose::initialise()
 {
     mGameState.nextSceneID = NO_SCENE;
 
-    mGameState.bgm = LoadMusicStream("assets/game/04 - Silent Forest.wav");
-    SetMusicVolume(mGameState.bgm, 0.33f);
-    // PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/Dirt Jump.wav");
     lose = LoadTexture("assets/game/Lose.png");
 
 
@@ -26,8 +22,6 @@ void Lose::initialise()
 
 void Lose::update(float deltaTime)
 {
-    UpdateMusicStream(mGameState.bgm);
-
   
 }
 
@@ -53,9 +47,6 @@ void Lose::render()
 void Lose::shutdown()
 {
     
-    UnloadMusicStream(mGameState.bgm);
-    mGameState.bgm = {};
-    UnloadSound(mGameState.jumpSound);
-    mGameState.jumpSound = {};
+
     UnloadTexture(lose);
 }

@@ -65,8 +65,7 @@ void LevelC::initialise()
     mGameState.xochitl->setColliderDimensions({
         mGameState.xochitl->getScale().x / 2.0f ,
         mGameState.xochitl->getScale().y
-        // SIZE * 0.8f,
-        // SIZE * 0.9f
+
     });
     mGameState.xochitl->setAcceleration({ 0.0f, ACCELERATION_OF_GRAVITY });
 
@@ -156,8 +155,10 @@ void LevelC::update(float deltaTime)
         0               // col. entity count
     );
 
-    if (mGameState.xochitl->getPosition().y > END_GAME_THRESHOLD)
-        mGameState.nextSceneID = LEVEL_B;
+    if (mGameState.xochitl->getPosition().x > 1800.0f)
+        mGameState.nextSceneID = WIN;
+
+    if (mGameState.xochitl->getLives() == 0) mGameState.nextSceneID = LOSE;
 }
 
 
