@@ -382,7 +382,44 @@ void Entity::AIFollow(Entity *target)
     }
 }
 
-void Entity::AIActivate(Entity *target)
+
+void Entity::AILerp(Entity *target, float deltaTime)
+{
+    switch (mAIState)
+    {
+    case IDLE:
+        if (Vector2Distance(mPosition, target->getPosition()) < 350.0f)
+            mAIState = FOLLOWING;
+        break;
+
+    // case FOLLOWING:
+    //     mPosition.x += (target->getPosition().x - mPosition.x)
+    //                    * mLerpFactor * deltaTime;
+    //     mPosition.y += (target->getPosition().y - mPosition.y)
+    //                    * mLerpFactor * deltaTime;
+    //     break;
+
+    case FOLLOWING:
+    {
+
+        const Vector2 offset = { 30.0f, 15.0f };
+
+        Vector2 goal = {
+            target->getPosition().x + offset.x,
+            target->getPosition().y + offset.y
+        };
+
+        mPosition.x += (goal.x - mPosition.x) * mLerpFactor * deltaTime;
+        mPosition.y += (goal.y - mPosition.y) * mLerpFactor * deltaTime;
+        break;
+    }
+
+    default:
+        break;
+    }
+}
+
+void Entity::AIActivate(Entity *target, float deltaTime)
 {
     switch (mAIType)
     {
@@ -391,6 +428,9 @@ void Entity::AIActivate(Entity *target)
         break;
     case FOLLOWER:
         AIFollow(target);
+        break;
+    case LERPER:
+        AILerp(target, deltaTime);
         break;
     default:
         break;
@@ -407,37 +447,55 @@ void Entity::update(
 {
     if (mEntityStatus == INACTIVE) return;
 
-    if (mEntityType == NPC) AIActivate(player);
+    if (mEntityType == NPC) AIActivate(player, deltaTime);
 
     resetColliderFlags();
 
-    mVelocity.x = mMovement.x * mSpeed;
-
-    mVelocity.x += mAcceleration.x * deltaTime;
-    mVelocity.y += mAcceleration.y * deltaTime;
-
-    // ––––– JUMPING ––––– //
-    if (mIsJumping)
+    if (mAIType != LERPER)
     {
-        // STEP 1: Immediately return the flag to its original false state
-        mIsJumping = false;
 
-        // STEP 2: The player now acquires an upward velocity
-        mVelocity.y -= mJumpingPower;
+        mVelocity.x = mMovement.x * mSpeed;
+
+        mVelocity.x += mAcceleration.x * deltaTime;
+        mVelocity.y += mAcceleration.y * deltaTime;
+
+        // ––––– JUMPING ––––– //
+        if (mIsJumping)
+        {
+            // STEP 1: Immediately return the flag to its original false state
+            mIsJumping = false;
+
+            // STEP 2: The player now acquires an upward velocity
+            mVelocity.y -= mJumpingPower;
+        }
+
+        mPosition.y += mVelocity.y * deltaTime;
+        checkCollisionY(collidableEntities, collisionCheckCount);
+        checkCollisionY(map);
+
+        mPosition.x += mVelocity.x * deltaTime;
+        checkCollisionX(collidableEntities, collisionCheckCount);
+        checkCollisionX(map);
+
+        // Only animate if we're on the ground (not necessary)
+        // if (mTextureType == ATLAS && GetLength(mMovement) != 0 &&
+        //     mIsCollidingBottom)
+        // {
+        //     animate(deltaTime);
+
+        // }
+
+        if (mTextureType == ATLAS)
+        {
+            // LERPER entities always animate; others only animate while grounded
+            // and moving
+            bool shouldAnimate = mAIType == LERPER ||
+                (GetLength(mMovement) != 0 && mIsCollidingBottom);
+
+            if (shouldAnimate) animate(deltaTime);
+        }
+        
     }
-
-    mPosition.y += mVelocity.y * deltaTime;
-    checkCollisionY(collidableEntities, collisionCheckCount);
-    checkCollisionY(map);
-
-    mPosition.x += mVelocity.x * deltaTime;
-    checkCollisionX(collidableEntities, collisionCheckCount);
-    checkCollisionX(map);
-
-    // Only animate if we're on the ground (not necessary)
-    if (mTextureType == ATLAS && GetLength(mMovement) != 0 &&
-        mIsCollidingBottom)
-        animate(deltaTime);
 
     
 }

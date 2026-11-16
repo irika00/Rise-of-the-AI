@@ -16,7 +16,7 @@
 
 enum AppStatus   { TERMINATED, RUNNING                  };
 enum TextureType { SINGLE, ATLAS                        };
-enum SceneID     { NO_SCENE = -1, LEVEL_A, LEVEL_B, LEVEL_C      };
+enum SceneID     { NO_SCENE = -1, LEVEL_A, LEVEL_B, LEVEL_C, WELCOME, WIN, LOSE      };
 
 Color     ColorFromHex(const char *hex);
 void      Normalise(Vector2 *vector);

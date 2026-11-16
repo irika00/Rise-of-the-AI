@@ -136,6 +136,39 @@ void LevelA::initialise()
     mGameState.bread->setDirection(LEFT);
 
 
+
+    //5 * 10
+    std::map<Direction, std::vector<int>> donutAnimationAtlas = {
+        { RIGHT, { 10, 11, 12, 13, 14 } },
+        { LEFT,  { 23, 28, 28, 28, 28} },
+    };
+
+
+    mGameState.donut = new Entity(
+        { mOrigin.x - 1200.0f, mOrigin.y - 200.0f}, // position
+        { 50.0f, 50.0f },             // scale
+        "assets/game/donut.png",                     // texture file address
+        ATLAS,                                      // single image or atlas?
+        { 5, 10},                                   // atlas dimensions
+        donutAnimationAtlas,                      // actual atlas
+        NPC                                      // entity type
+    );
+
+
+    mGameState.donut->setAIType(LERPER);
+    mGameState.donut->setAIState(IDLE);
+    mGameState.donut->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
+    mGameState.donut->setColliderDimensions({
+        mGameState.donut->getScale().x / 2.0f,
+        mGameState.donut->getScale().y 
+    });
+    mGameState.donut->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
+    mGameState.donut->setDirection(LEFT);
+    mGameState.donut->setLerpFactor(2.0f);
+
+    
+
+
 }
 
 void LevelA::update(float deltaTime)
@@ -169,6 +202,15 @@ void LevelA::update(float deltaTime)
         nullptr,        // collidable entities
         0               // col. entity count
     );
+
+
+     mGameState.donut->update(
+        deltaTime,      // delta time / fixed timestep
+        mGameState.xochitl,        // player
+        mGameState.map, // map
+        nullptr,        // collidable entities
+        0               // col. entity count
+    );
 }
 
 
@@ -190,6 +232,10 @@ void LevelA::render()
     // mGameState.turnip->displayCollider();
     mGameState.bread->render();
     mGameState.bread->displayCollider();
+
+    mGameState.donut->render();
+    mGameState.donut->displayCollider();
+
 }
 
 void LevelA::shutdown()
@@ -202,6 +248,9 @@ void LevelA::shutdown()
     // mGameState.turnip = nullptr;
     delete mGameState.bread;
     mGameState.bread = nullptr;
+
+    delete mGameState.donut;
+    mGameState.donut = nullptr;
 
     // UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};

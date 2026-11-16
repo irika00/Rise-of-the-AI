@@ -10,6 +10,7 @@ struct GameState
     Entity *turnip;
     Entity *fork;
     Entity *bread;
+    Entity *donut;
 
     Music bgm;
     Sound jumpSound;

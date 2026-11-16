@@ -1,6 +1,7 @@
 #include "CS3113/LevelB.h"
 #include "CS3113/LevelA.h"
 #include "CS3113/LevelC.h"
+#include "CS3113/Welcome.h"
 
 
 // Global Constants
@@ -45,6 +46,8 @@ void initialise()
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Scenes");
     InitAudioDevice();
 
+
+    gLevels[WELCOME] = new Welcome(ORIGIN, "#FFFFFF");
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#FFFFFF");
     // gLevels[LEVEL_A]->updateLives(lives);
     gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
@@ -73,6 +76,7 @@ void processInput()
     if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
     if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
     if (IsKeyPressed(KEY_THREE)) switchToScene(gLevels[LEVEL_C]);
+    if (IsKeyPressed(KEY_FOUR)) switchToScene(gLevels[WELCOME]);
 
 
     if (IsKeyPressed(KEY_W) &&

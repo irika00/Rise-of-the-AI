@@ -6,7 +6,7 @@
 enum Direction    { UP, RIGHT, LEFT, DOWN           }; 
 enum EntityStatus { ACTIVE, INACTIVE                   };
 enum EntityType   { PLAYER, BLOCK, PLATFORM, NPC, NONE };
-enum AIType       { WANDERER, FOLLOWER                 };
+enum AIType       { WANDERER, FOLLOWER, LERPER                };
 enum AIState      { WALKING, IDLE, FOLLOWING           };
 
 class Entity
@@ -38,6 +38,7 @@ private:
     int   mSpeed;
     float mAngle;
     int mLives = 3;
+    float mLerpFactor = 2.0f; 
 
     bool mIsCollidingTop    = false;
     bool mIsCollidingBottom = false;
@@ -67,7 +68,7 @@ private:
     }
 
     void animate(float deltaTime);
-    void AIActivate(Entity *target);
+    void AIActivate(Entity *target, float deltaTime);
     void AIWander();
     void test();
     void AIFollow(Entity *target);
@@ -106,6 +107,9 @@ public:
         Entity *collidableEntities,
         int     collisionCheckCount
     );
+
+    void AILerp(Entity *target, float deltaTime);
+
     void render();
     void normaliseMovement() { Normalise(&mMovement); }
 
@@ -147,6 +151,8 @@ public:
     AIType      getAIType()                const { return mAIType;                }
     AIState     getAIState()               const { return mAIState;               }
     float       getLives()                 const { return mLives;                 }
+    
+
 
     bool isCollidingTop()    const { return mIsCollidingTop;    }
     bool isCollidingBottom() const { return mIsCollidingBottom; }
@@ -193,6 +199,9 @@ public:
     { mMoveSpeed = speed; mMinX = minX; mMaxX = maxX; }
     void setLives(int newLives)
         { mLives = newLives;                           }
+
+    void  setLerpFactor(float lerpFactor) { mLerpFactor = lerpFactor; }
+    float getLerpFactor() const           { return mLerpFactor; }
 };
 
 #endif // ENTITY_H
