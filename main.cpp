@@ -5,6 +5,23 @@
 #include "CS3113/Win.h"
 #include "CS3113/Lose.h"
 
+/**
+
+* Author: Irika Aggarwal
+
+* Assignment: Rise of the AI
+
+* Date due: Monday, Nov 16th, 11:59PM
+
+* I pledge that I have completed this assignment without
+
+* collaborating with anyone else, in conformance with the
+
+* NYU School of Engineering Policies and Procedures on
+
+* Academic Misconduct.
+
+**/
 
 // Global Constants
 constexpr int SCREEN_WIDTH  = 1152,

@@ -52,7 +52,7 @@ void LevelC::initialise()
 
     const float SIZE = 140.0f;
     mGameState.xochitl = new Entity(
-        { mOrigin.x - 1400.0f, mOrigin.y - 200.0f }, // position
+        { - 1080.0f, mOrigin.y - 200.0f }, // position
         { SIZE, SIZE },             // scale
         "assets/game/plate.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
