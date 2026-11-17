@@ -167,27 +167,25 @@ void update()
 
     while (deltaTime >= FIXED_TIMESTEP)
     {
+        Entity *player = gCurrentScene->getState().xochitl;
+        float livesBefore = (player != nullptr) ? player->getLives() : 0.0f;
+
         gCurrentScene->update(FIXED_TIMESTEP);
         deltaTime -= FIXED_TIMESTEP;
 
-        Entity *player = gCurrentScene->getState().xochitl;
-        float livesBefore = (player != nullptr) ? player->getLives() : 0.0f;
         player = gCurrentScene->getState().xochitl;
         if (player != nullptr)
         {
             float livesNow = player->getLives();
 
-
             if (livesNow < livesBefore && livesNow > 0.0f)
-            PlaySound(gCurrentScene->getState().hitSound);
+                PlaySound(gCurrentScene->getState().hitSound);
+
             Vector2 currentPlayerPosition = {
-            gCurrentScene->getState().xochitl->getPosition().x, gCurrentScene->getState().xochitl->getPosition().y
+                player->getPosition().x, player->getPosition().y
             };
             panCamera(&gCamera, &currentPlayerPosition);
-
-        }  
-
-       
+        }
     }
 
     gTimeAccumulator = deltaTime;
