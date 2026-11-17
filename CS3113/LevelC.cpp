@@ -78,7 +78,7 @@ void LevelC::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  150.0f, mOrigin.y - 400.0f }, // position
+        {  210.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -104,7 +104,7 @@ void LevelC::initialise()
     };
 
     mGameState.bread = new Entity(
-        { -320, 50 }, // position
+         { 200.0f, 140.0f}, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -119,12 +119,12 @@ void LevelC::initialise()
     mGameState.bread->setAIState(IDLE);
     mGameState.bread->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.bread->setColliderDimensions({
-        mGameState.bread->getScale().x / 2.0f,
-        mGameState.bread->getScale().y 
+         56.0f, 52.0f 
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);
-    mGameState.bread->setPatrolRange(-435.0f, -285.0f); 
+    mGameState.bread->setPatrolRange(110.0f, 290.0f);;
+    mGameState.bread->moveLeft();
 
 
     std::map<Direction, std::vector<int>> donutAnimationAtlas = {

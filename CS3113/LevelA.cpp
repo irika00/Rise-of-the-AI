@@ -110,7 +110,7 @@ void LevelA::initialise()
     };
 
     mGameState.bread = new Entity(
-        {  mOrigin.x - 1000.0f, mOrigin.y + 200.0f }, // position
+        {  mOrigin.x - 900.0f, mOrigin.y + 200.0f }, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -130,6 +130,7 @@ void LevelA::initialise()
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);
+    mGameState.bread->setPatrolRange(-300, 400);
 
 
 

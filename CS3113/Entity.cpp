@@ -387,8 +387,9 @@ void Entity::AIWander()
 {
 
 
-    if (mPosition.x > 200.0f)  { moveLeft();  }
-    if (mPosition.x < -100.0f) { moveRight(); }
+    if      (mPosition.x <= mPatrolMinX) moveRight();
+    else if (mPosition.x >= mPatrolMaxX) moveLeft();
+    else if (mMovement.x == 0.0f)        moveLeft(); 
 
     // if (mPosition.x > 600.0f)  { moveLeft();  }
     // if (mPosition.x < 300.0f) { moveRight(); }
@@ -536,16 +537,17 @@ void Entity::update(
 
         // }
 
-        if (mTextureType == ATLAS)
-        {
-            // LERPER entities always animate; others only animate while grounded
-            // and moving
-            bool shouldAnimate = mAIType == LERPER ||
-                (GetLength(mMovement) != 0 && mIsCollidingBottom);
-
-            if (shouldAnimate) animate(deltaTime);
-        }
+       
         
+    }
+
+     if (mTextureType == ATLAS)
+    {
+
+        bool shouldAnimate = mAIType == LERPER ||
+            (GetLength(mMovement) != 0 && mIsCollidingBottom);
+
+        if (shouldAnimate) animate(deltaTime);
     }
 
     

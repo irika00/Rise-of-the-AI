@@ -229,8 +229,8 @@ void render()
         float   playerX = player->getPosition().x;
         float playerY = player->getPosition().y;
 
-        // DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
-        DrawText(TextFormat("player x: %.0f", playerY), 20, 60, 24, BLACK);
+        DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
+        // DrawText(TextFormat("player y: %.0f", playerY), 20, 60, 24, BLACK);
 
 
 
