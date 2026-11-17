@@ -78,7 +78,7 @@ void LevelC::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  70.0f, mOrigin.y - 400.0f }, // position
+        {  150.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -104,7 +104,7 @@ void LevelC::initialise()
     };
 
     mGameState.bread = new Entity(
-        {  1400.0f, 182.0f }, // position
+        { -320, 50 }, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -124,7 +124,7 @@ void LevelC::initialise()
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);
-    mGameState.bread->setPatrolRange(1650.0f, 1800.0f); 
+    mGameState.bread->setPatrolRange(-435.0f, -285.0f); 
 
 
     std::map<Direction, std::vector<int>> donutAnimationAtlas = {

@@ -38,13 +38,6 @@ void LevelA::initialise()
     /*
         ----------- PROTAGONIST -----------
     */
-    // std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
-    //     { DOWN,  {  0,  1,  2,  3,  4,  5,  6,  7 } },
-    //     { LEFT,  {  8,  9, 10, 11, 12, 13, 14, 15 } },
-    //     { UP,    { 24, 25, 26, 27, 28, 29, 30, 31 } },
-    //     { RIGHT, { 40, 41, 42, 43, 44, 45, 46, 47 } },
-    // };
-
     std::map<Direction, std::vector<int>> xochitlAnimationAtlas = {
         { DOWN,  {  0,  0,  0,  0} },
         { LEFT,  {  8,  9, 10, 11} },
