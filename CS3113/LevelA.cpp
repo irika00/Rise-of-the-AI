@@ -172,7 +172,7 @@ void LevelA::update(float deltaTime)
 {
 
 
-    if (mGameState.xochitl->getPosition().x > 1800.0f && mGameState.xochitl->getPosition().y > 35) mGameState.nextSceneID = LEVEL_B;
+    if (mGameState.xochitl->getPosition().x > 1750.0f && mGameState.xochitl->getPosition().y > 35) mGameState.nextSceneID = LEVEL_B;
     if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 
     UpdateMusicStream(mGameState.bgm);
@@ -221,6 +221,7 @@ void LevelA::update(float deltaTime)
 void LevelA::render()
 {
     ClearBackground(ColorFromHex(mBGColourHexCode));
+
 
     mGameState.xochitl->render();
     // mGameState.xochitl->displayCollider();
