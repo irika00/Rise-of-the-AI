@@ -157,7 +157,7 @@ void LevelA::initialise()
     mGameState.donut->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.donut->setColliderDimensions({
         mGameState.donut->getScale().x / 2.0f,
-        mGameState.donut->getScale().y 
+        mGameState.donut->getScale().y / 2.0f
     });
     mGameState.donut->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.donut->setDirection(LEFT);
@@ -172,7 +172,7 @@ void LevelA::update(float deltaTime)
 {
 
 
-    if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_B;
+    if (mGameState.xochitl->getPosition().x > 1800.0f && mGameState.xochitl->getPosition().y > 35) mGameState.nextSceneID = LEVEL_B;
     if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 
     UpdateMusicStream(mGameState.bgm);

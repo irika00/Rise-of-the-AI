@@ -195,7 +195,7 @@ void LevelB::update(float deltaTime)
     );
 
 
-    if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_C;
+    if (mGameState.xochitl->getPosition().x > 1800.0f && mGameState.xochitl->getPosition().y > 35) mGameState.nextSceneID = LEVEL_C;
     if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 }
 

@@ -50,7 +50,6 @@ void LevelC::initialise()
 
     float sizeRatio = 1.0f; //48.0f / 64.0f;
 
-    // Assets from @see https://sscary.itch.io/the-adventurer-female
 
     const float SIZE = 140.0f;
     mGameState.xochitl = new Entity(
@@ -104,7 +103,7 @@ void LevelC::initialise()
     };
 
     mGameState.bread = new Entity(
-         { 200.0f, 10.0f}, // position
+         { 200.0f, 125.0f}, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -200,7 +199,7 @@ void LevelC::update(float deltaTime)
         0               // col. entity count
     );
 
-    if (mGameState.xochitl->getPosition().x > 1800.0f)
+    if (mGameState.xochitl->getPosition().x > 1800.0f && mGameState.xochitl->getPosition().y > 35)
         mGameState.nextSceneID = WIN;
 
     if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
