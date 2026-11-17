@@ -15,10 +15,12 @@ void LevelC::initialise()
     mGameState.nextSceneID = NO_SCENE;
 
     mGameState.bgm = LoadMusicStream("assets/game/bgmusic.mp3");
+    mGameState.hitSound  = LoadSound("assets/game/hit.wav"); 
+    mGameState.deathSound = LoadSound("assets/game/death.wav");
     SetMusicVolume(mGameState.bgm, 0.33f);
     PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/slime_jump.mp3");
+    mGameState.jumpSound = LoadSound("assets/game/slime_jump.wav");
 
     /*
         ----------- MAP -----------
@@ -198,7 +200,7 @@ void LevelC::update(float deltaTime)
     if (mGameState.xochitl->getPosition().x > 1800.0f)
         mGameState.nextSceneID = WIN;
 
-    if (mGameState.xochitl->getLives() == 0) mGameState.nextSceneID = LOSE;
+    if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 }
 
 
@@ -240,5 +242,10 @@ void LevelC::shutdown()
     UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
+    UnloadSound(mGameState.hitSound);
+    UnloadSound(mGameState.deathSound);
     mGameState.jumpSound = {};
+    mGameState.hitSound  = {};
+    mGameState.deathSound = {};
+    
 }

@@ -14,6 +14,8 @@ struct GameState
 
     Music bgm;
     Sound jumpSound;
+    Sound hitSound;
+    Sound deathSound;
 
     SceneID nextSceneID;
 };

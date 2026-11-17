@@ -138,7 +138,7 @@ void processInput()
         if (IsKeyPressed(KEY_W) && player->isCollidingBottom())
         {
             player->jump();
-            // PlaySound(gCurrentScene->getState().jumpSound);
+            PlaySound(gCurrentScene->getState().jumpSound);
         }
 
         // to avoid faster diagonal speed
@@ -171,8 +171,15 @@ void update()
         deltaTime -= FIXED_TIMESTEP;
 
         Entity *player = gCurrentScene->getState().xochitl;
+        float livesBefore = (player != nullptr) ? player->getLives() : 0.0f;
+        player = gCurrentScene->getState().xochitl;
         if (player != nullptr)
         {
+            float livesNow = player->getLives();
+
+
+            if (livesNow < livesBefore && livesNow > 0.0f)
+            PlaySound(gCurrentScene->getState().hitSound);
             Vector2 currentPlayerPosition = {
             gCurrentScene->getState().xochitl->getPosition().x, gCurrentScene->getState().xochitl->getPosition().y
             };

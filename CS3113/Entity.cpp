@@ -194,6 +194,7 @@ void Entity::checkCollisionX(
             {
                 mTouchingEnemy = true;
                 if (!mWasTouchingEnemy) mLives -= 1;
+                
             }
 
             // mLives -= 1;

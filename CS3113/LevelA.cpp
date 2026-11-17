@@ -18,7 +18,10 @@ void LevelA::initialise()
     SetMusicVolume(mGameState.bgm, 0.33f);
     PlayMusicStream(mGameState.bgm);
 
-    mGameState.jumpSound = LoadSound("assets/game/slime_jump.mp3");
+    mGameState.jumpSound = LoadSound("assets/game/slime_jump.wav");
+    mGameState.hitSound  = LoadSound("assets/game/hit.wav"); 
+    mGameState.deathSound = LoadSound("assets/game/death.wav");
+    
 
     /*
         ----------- MAP -----------
@@ -176,7 +179,7 @@ void LevelA::update(float deltaTime)
 
 
     if (mGameState.xochitl->getPosition().x > 1800.0f) mGameState.nextSceneID = LEVEL_B;
-    if (mGameState.xochitl->getLives() == 0) mGameState.nextSceneID = LOSE;
+    if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 
     UpdateMusicStream(mGameState.bgm);
 
@@ -263,5 +266,9 @@ void LevelA::shutdown()
     UnloadMusicStream(mGameState.bgm);
     mGameState.bgm = {};
     UnloadSound(mGameState.jumpSound);
+    UnloadSound(mGameState.hitSound);
+    UnloadSound(mGameState.deathSound);
     mGameState.jumpSound = {};
+    mGameState.hitSound  = {};
+    mGameState.deathSound = {};
 }

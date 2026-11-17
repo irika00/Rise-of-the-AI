@@ -13,7 +13,8 @@ Lose::~Lose() { shutdown(); }
 void Lose::initialise()
 {
     mGameState.nextSceneID = NO_SCENE;
-
+    mGameState.deathSound = LoadSound("assets/game/death.wav");
+    PlaySound(mGameState.deathSound);
 
     lose = LoadTexture("assets/game/Lose.png");
 
@@ -49,4 +50,6 @@ void Lose::shutdown()
     
 
     UnloadTexture(lose);
+    UnloadSound(mGameState.deathSound);
+    mGameState.deathSound = {};
 }
