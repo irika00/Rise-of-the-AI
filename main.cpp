@@ -60,7 +60,7 @@ void switchToScene(Scene *scene)
     if (gCurrentScene) gCurrentScene->shutdown();
     gCurrentScene = scene;
     gCurrentScene->initialise();
-    if (scene == gLevels[WELCOME]) gLives = 3.0f;
+    if (scene == gLevels[LEVEL_A]) gLives = 3.0f;
     // gCamera.target = gCurrentScene->getState().xochitl->getPosition();
     Entity *player = gCurrentScene->getState().xochitl;
     if (player != nullptr)
@@ -86,7 +86,6 @@ void initialise()
 
     gLevels[WELCOME] = new Welcome(ORIGIN, "#FFFFFF");
     gLevels[LEVEL_A] = new LevelA(ORIGIN, "#FFFFFF");
-    // gLevels[LEVEL_A]->updateLives(lives);
     gLevels[LEVEL_B] = new LevelB(ORIGIN, "#FFFFFF");
     gLevels[LEVEL_C] = new LevelC(ORIGIN, "#FFFFFF");
     gLevels[WIN] = new Win(ORIGIN, "#FFFFFF");
@@ -108,13 +107,27 @@ void processInput()
 {
 
 
+    //for debugging
+
     if (IsKeyPressed(KEY_ONE)) switchToScene(gLevels[LEVEL_A]);
-    if (IsKeyPressed(KEY_ENTER)) switchToScene(gLevels[LEVEL_A]);
+
+    
     if (IsKeyPressed(KEY_TWO)) switchToScene(gLevels[LEVEL_B]);
     if (IsKeyPressed(KEY_THREE)) switchToScene(gLevels[LEVEL_C]);
     if (IsKeyPressed(KEY_FOUR)) switchToScene(gLevels[WELCOME]);
     if (IsKeyPressed(KEY_FIVE)) switchToScene(gLevels[WIN]);
     if (IsKeyPressed(KEY_SIX)) switchToScene(gLevels[LOSE]);
+
+
+    if (IsKeyPressed(KEY_ENTER) && gCurrentScene == gLevels[WELCOME])
+    {
+        switchToScene(gLevels[LEVEL_A]);
+    }
+    else if (IsKeyPressed(KEY_ENTER)) 
+    {
+        switchToScene(gLevels[WELCOME]);
+    
+    }
 
 
     // if (IsKeyPressed(KEY_W) &&
@@ -214,8 +227,10 @@ void render()
         //to be deleted
         // Entity *player = gCurrentScene->getState().xochitl;
         float   playerX = player->getPosition().x;
+        float playerY = player->getPosition().y;
 
-        DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
+        // DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
+        DrawText(TextFormat("player x: %.0f", playerY), 20, 60, 24, BLACK);
 
 
 

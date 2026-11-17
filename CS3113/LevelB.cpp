@@ -90,7 +90,7 @@ void LevelB::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  mOrigin.x - 100.0f, mOrigin.y - 400.0f }, // position
+        {  mOrigin.x - 50.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -132,7 +132,7 @@ void LevelB::initialise()
     mGameState.bread->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.bread->setColliderDimensions({
         mGameState.bread->getScale().x / 2.0f,
-        mGameState.bread->getScale().y 
+        mGameState.bread->getScale().y / 2.0f
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);

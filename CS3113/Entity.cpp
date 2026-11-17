@@ -83,16 +83,15 @@ void Entity::checkCollisionY(
 
         if (enemyContact)
         {
-            // one life per touch, on the first frame of contact only
+            
+            if (!mWasTouchingEnemy && !mTouchingEnemy) mLives -= 1;
             mTouchingEnemy = true;
-            if (!mWasTouchingEnemy) mLives -= 1;
 
-            // falling with my feet above the enemy's centre = landed on it
             float myBottom = mPosition.y + mColliderDimensions.y / 2.0f;
             if (mVelocity.y > 0.0f && myBottom < collidableEntity->mPosition.y)
             {
-                mPosition.y -= yOverlap;        // unclip from it
-                mVelocity.y  = -350.0f;  // bounce
+                mPosition.y -= yOverlap;       
+                mVelocity.y  = -350.0f;  
             }
 
             continue; 
@@ -192,12 +191,12 @@ void Entity::checkCollisionX(
 
             if (mEntityType == PLAYER && collidableEntity->mEntityType == NPC)
             {
+                if (!mWasTouchingEnemy && !mTouchingEnemy) mLives -= 1;
                 mTouchingEnemy = true;
-                if (!mWasTouchingEnemy) mLives -= 1;
                 
             }
 
-            // mLives -= 1;
+
         }
     }
 }

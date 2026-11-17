@@ -78,7 +78,7 @@ void LevelC::initialise()
     };
 
     mGameState.turnip = new Entity(
-        {  mOrigin.x - 300.0f, mOrigin.y - 400.0f }, // position
+        {  70.0f, mOrigin.y - 400.0f }, // position
         { 60.0f, 60.0f },             // scale
         "assets/game/turnip.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -96,6 +96,7 @@ void LevelC::initialise()
     });
     mGameState.turnip->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.turnip->setDirection(LEFT);
+    mGameState.turnip->setPatrolRange(64.0f, 650.0f); 
 
     std::map<Direction, std::vector<int>> breadAnimationAtlas = {
         { RIGHT, { 0, 1, 2, 2 } },
@@ -103,7 +104,7 @@ void LevelC::initialise()
     };
 
     mGameState.bread = new Entity(
-        {  mOrigin.x - 1000.0f, mOrigin.y + 200.0f }, // position
+        {  1400.0f, 182.0f }, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -123,6 +124,7 @@ void LevelC::initialise()
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);
+    mGameState.bread->setPatrolRange(1650.0f, 1800.0f); 
 
 
     std::map<Direction, std::vector<int>> donutAnimationAtlas = {
@@ -132,7 +134,7 @@ void LevelC::initialise()
 
 
     mGameState.donut = new Entity(
-        { mOrigin.x - 1200.0f, mOrigin.y - 200.0f}, // position
+        { - 1080.0f, mOrigin.y - 200.0f}, // position
         { 50.0f, 50.0f },             // scale
         "assets/game/donut.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -203,12 +205,6 @@ void LevelC::update(float deltaTime)
     if (mGameState.xochitl->getLives() <= 0) mGameState.nextSceneID = LOSE;
 }
 
-
-// void LevelC::updateLives(int lives)
-// {
-//     mLives = lives;
-
-// }
 
 void LevelC::render()
 {
