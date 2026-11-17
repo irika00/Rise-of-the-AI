@@ -104,7 +104,7 @@ void LevelC::initialise()
     };
 
     mGameState.bread = new Entity(
-         { 200.0f, 140.0f}, // position
+         { 200.0f, 10.0f}, // position
         { 100.0f, 100.0f },             // scale
         "assets/game/bread.png",                     // texture file address
         ATLAS,                                      // single image or atlas?
@@ -119,7 +119,8 @@ void LevelC::initialise()
     mGameState.bread->setAIState(IDLE);
     mGameState.bread->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.bread->setColliderDimensions({
-         56.0f, 52.0f 
+        mGameState.bread->getScale().x / 2.0f,
+        mGameState.bread->getScale().y / 2.0f
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);

@@ -126,7 +126,7 @@ void LevelA::initialise()
     mGameState.bread->setSpeed(Entity::DEFAULT_SPEED * 0.50f);
     mGameState.bread->setColliderDimensions({
         mGameState.bread->getScale().x / 2.0f,
-        mGameState.bread->getScale().y 
+        mGameState.bread->getScale().y / 2.0f
     });
     mGameState.bread->setAcceleration({0.0f, ACCELERATION_OF_GRAVITY});
     mGameState.bread->setDirection(LEFT);
@@ -217,11 +217,6 @@ void LevelA::update(float deltaTime)
 }
 
 
-// void LevelA::updateLives(int lives)
-// {
-//     mLives = lives;
-
-// }
 
 void LevelA::render()
 {
