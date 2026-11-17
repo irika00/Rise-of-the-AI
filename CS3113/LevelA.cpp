@@ -223,16 +223,16 @@ void LevelA::render()
     ClearBackground(ColorFromHex(mBGColourHexCode));
 
     mGameState.xochitl->render();
-    mGameState.xochitl->displayCollider();
+    // mGameState.xochitl->displayCollider();
     
     mGameState.map->render();
     // mGameState.turnip->render();
     // mGameState.turnip->displayCollider();
     mGameState.bread->render();
-    mGameState.bread->displayCollider();
+    // mGameState.bread->displayCollider();
 
     mGameState.donut->render();
-    mGameState.donut->displayCollider();
+    // mGameState.donut->displayCollider();
 
    
 

@@ -194,9 +194,18 @@ void update()
             if (livesNow < livesBefore && livesNow > 0.0f)
                 PlaySound(gCurrentScene->getState().hitSound);
 
+
             Vector2 currentPlayerPosition = {
+                player->getPosition().x,  ORIGIN.y + 20.0f
+            };
+
+            if (gCurrentScene == gLevels[LEVEL_C] || gCurrentScene == gLevels[LEVEL_B])
+            {
+                currentPlayerPosition = {
                 player->getPosition().x, player->getPosition().y
             };
+                
+            }
             panCamera(&gCamera, &currentPlayerPosition);
         }
     }
@@ -230,7 +239,7 @@ void render()
         float playerY = player->getPosition().y;
 
         // DrawText(TextFormat("player x: %.0f", playerX), 20, 60, 24, BLACK);
-        DrawText(TextFormat("player y: %.0f", playerY), 20, 60, 24, BLACK);
+        // DrawText(TextFormat("player y: %.0f", playerY), 20, 60, 24, BLACK);
 
 
 

@@ -10,4 +10,7 @@
 - bread from: https://caz-bee.itch.io/bread
 - Screens made from canva using assets
 - BG music from: https://incompetech.com/music/royalty-free/music.html
+- to play: use W,A and D
+    - turnip (follower) and bread(wandering) are enemies 
+    - to win reach the last part of the platform (has ice cream on it)
 
